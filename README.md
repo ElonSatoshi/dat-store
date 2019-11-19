@@ -106,8 +106,9 @@ The fastify server will take care of the rest of your serving needs for the stor
 #### Linux (SystemD)
 
 ```bash
-# This will create the service file
-sudo cat << EOF > /etc/systemd/system/dat-store.service
+# This will create the service file. Paste it into an interactive bash or zsh shell, or save it as a file and run it with dash/sh.
+
+sudo cat << EOF | sudo tee /etc/systemd/system/dat-store.service > /dev/null
 [Unit]
 Description=Dat storage provider, keeps dats alive in the background.
 
@@ -115,7 +116,7 @@ Description=Dat storage provider, keeps dats alive in the background.
 Type=simple
 # Check that dat-store is present at this location
 # If it's not, replace the path with its location
-ExecStart=/usr/bin/dat-store run-service
+ExecStart=`which dat-store` run-service
 Restart=always
 
 [Install]
